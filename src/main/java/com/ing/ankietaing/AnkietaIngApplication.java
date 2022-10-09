@@ -8,6 +8,7 @@ public class AnkietaIngApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AnkietaIngApplication.class, args);
+        System.out.println("test");
     }
 
 }
