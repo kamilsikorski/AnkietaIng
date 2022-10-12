@@ -2,34 +2,28 @@ package com.ing.ankietaing.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
-import java.util.Objects;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "questionnaire", schema = "ankieta", catalog = "")
+@Table(name="questionnaire")
 public class QuestionnaireEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    public QuestionnaireEntity() {
+    }
+
     @Id
-    @Column(name = "id")
-    private int id;
-    @Basic
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
     @Setter
-    @Column(name = "title")
+    private Long id;
+
+    @Getter
+    @Setter
+    @NotBlank(message = "Title can't be empty")
     private String title;
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        QuestionnaireEntity that = (QuestionnaireEntity) o;
-        return id == that.id && Objects.equals(title, that.title);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title);
-    }
 }

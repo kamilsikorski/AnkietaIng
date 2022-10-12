@@ -1,42 +1,48 @@
 package com.ing.ankietaing.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.Objects;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "question", schema = "ankieta", catalog = "")
+@Table(name="questionnaire")
 public class QuestionEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    public QuestionEntity() {
+    }
+
     @Id
-    @Column(name = "id")
-    private int id;
-    @Basic
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Getter
+    @Setter
+    private Long id;
+
+    @Getter
+    @Setter
     @Column(name = "question_content")
+    @NotBlank(message = "Question must contain content")
     private String questionContent;
-    @Basic
+
+    @Getter
+    @Setter
     @Column(name = "multi_selection")
-    private Byte multiSelection;
-    @Basic
+    private boolean multiSelection;
+
+    @Getter
+    @Setter
     @Column(name = "open_question")
-    private byte openQuestion;
-    @Basic
+    private boolean openQuestion;
+
+    @Getter
+    @Setter
     @Column(name = "min_answer")
-    private Integer minAnswer;
-    @Basic
+    private int minAnswer;
+
+    @Getter
+    @Setter
     @Column(name = "max_answer")
-    private Integer maxAnswer;
+    private int maxAnswer;
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        QuestionEntity that = (QuestionEntity) o;
-        return id == that.id && openQuestion == that.openQuestion && Objects.equals(questionContent, that.questionContent) && Objects.equals(multiSelection, that.multiSelection) && Objects.equals(minAnswer, that.minAnswer) && Objects.equals(maxAnswer, that.maxAnswer);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, questionContent, multiSelection, openQuestion, minAnswer, maxAnswer);
-    }
 }
