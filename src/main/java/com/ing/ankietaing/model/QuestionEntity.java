@@ -5,13 +5,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
-@Table(name="questionnaire")
+@Table(name="question")
 public class QuestionEntity {
 
     public QuestionEntity() {
     }
+
+    @Embedded
+    private Audit audit = new Audit();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,28 +25,36 @@ public class QuestionEntity {
 
     @Getter
     @Setter
-    @Column(name = "question_content")
     @NotBlank(message = "Question must contain content")
     private String questionContent;
 
     @Getter
     @Setter
-    @Column(name = "multi_selection")
     private boolean multiSelection;
 
     @Getter
     @Setter
-    @Column(name = "open_question")
     private boolean openQuestion;
 
     @Getter
     @Setter
-    @Column(name = "min_answer")
     private int minAnswer;
 
     @Getter
     @Setter
-    @Column(name = "max_answer")
     private int maxAnswer;
+
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "questionnaire_id")
+    private QuestionnaireEntity questionnaireEntity;
+
+
+    @Getter
+    @Setter
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<AnswerCloseEntity> closeAnswers;
+
+
 
 }

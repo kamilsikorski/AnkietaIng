@@ -1,0 +1,18 @@
+{
+  "title": "Ankieta test",
+  "questions": [
+    {
+      "questionContent": "Jak mas zna imie1",
+      "multiSelection": false,
+      "openQuestion": false,
+      "minAnswer": 1,
+      "maxAnswer": 1,
+      "closeAnswers": [
+        {
+          "answerContent": "dupsko",
+          ""
+        }
+      ]
+    }
+  ]
+}

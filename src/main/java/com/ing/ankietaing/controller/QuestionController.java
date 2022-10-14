@@ -42,4 +42,10 @@ public class QuestionController {
         questionRepository.save(questionEntity);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/questionIfExists/{id}")
+    ResponseEntity<?> questionIfExists(@PathVariable long id) {
+       return ResponseEntity.ok(questionRepository.existsById(id));
+    }
+
 }
