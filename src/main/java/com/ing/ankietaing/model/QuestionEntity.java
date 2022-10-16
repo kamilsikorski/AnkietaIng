@@ -44,6 +44,10 @@ public class QuestionEntity {
     @Setter
     private int maxAnswer;
 
+    @Getter
+    @Setter
+    private String openAnswerContent;
+
     @Setter
     @ManyToOne
     @JoinColumn(name = "questionnaire_id")

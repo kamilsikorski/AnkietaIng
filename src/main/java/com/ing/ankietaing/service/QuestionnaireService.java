@@ -1,18 +1,16 @@
 package com.ing.ankietaing.service;
 
+import com.ing.ankietaing.model.AnswerCloseEntity;
 import com.ing.ankietaing.model.QuestionEntity;
 import com.ing.ankietaing.model.QuestionaireOwnerEntity;
 import com.ing.ankietaing.model.QuestionnaireEntity;
 import com.ing.ankietaing.repository.*;
-import org.springframework.data.rest.core.ValidationErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toSet;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionnaireService {
@@ -29,22 +27,35 @@ public class QuestionnaireService {
 
     private final ReportSqlRepository reportSqlRepository;
 
+    private final QuestionaireOwnerSqlRepository questionaireOwnerSqlRepository;
 
-    public QuestionnaireService(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository, QuestionnaireSqlRepository questionnaireSqlRepository, AnswerCloseRepository answerCloseRepository, QuestionaireOwnerRepository questionaireOwnerRepository, ReportSqlRepository reportSqlRepository) {
+
+    public QuestionnaireService(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository, QuestionnaireSqlRepository questionnaireSqlRepository, AnswerCloseRepository answerCloseRepository, QuestionaireOwnerRepository questionaireOwnerRepository, ReportSqlRepository reportSqlRepository, QuestionaireOwnerSqlRepository questionaireOwnerSqlRepository) {
         this.questionnaireRepository = questionnaireRepository;
         this.questionRepository = questionRepository;
         this.questionnaireSqlRepository = questionnaireSqlRepository;
         this.answerCloseRepository = answerCloseRepository;
         this.questionaireOwnerRepository = questionaireOwnerRepository;
         this.reportSqlRepository = reportSqlRepository;
+        this.questionaireOwnerSqlRepository = questionaireOwnerSqlRepository;
     }
 
     public void addOwnerToQuestionnaire(QuestionaireOwnerEntity questionaireOwnerEntity, QuestionnaireEntity questionnaireEntity) {
-
-
         addFullQuestionnaire(questionnaireEntity);
         questionaireOwnerEntity.getQuestionnaireEntities().add(questionnaireEntity);
         questionaireOwnerRepository.save(questionaireOwnerEntity);
+    }
+
+
+    public void updateQuestionnaireByOwner(QuestionaireOwnerEntity questionaireOwnerEntity, QuestionnaireEntity questionnaireEntityUpdate) {
+
+        QuestionnaireEntity questionnaireEntityFromDatabase = questionaireOwnerSqlRepository.findQuestionnaireForOwner(questionaireOwnerEntity.getName(),
+                questionaireOwnerEntity.getSurename());
+
+
+
+        questionnaireRepository.save(questionnaireEntityFromDatabase);
+
 
     }
 
@@ -54,7 +65,7 @@ public class QuestionnaireService {
     }
 
 
-    public ResponseEntity validateQuestionnaireQuery(QuestionnaireEntity questionnaireEntity) {
+    public ResponseEntity validateAllQuestionsFromQuestionnaire(List<QuestionnaireEntity> questionnaireEntity) {
 
         if (true) {
             return new ResponseEntity<>("jest zle", HttpStatus.BAD_REQUEST);

@@ -48,16 +48,6 @@ public class QuestionaireOwnerController {
         }
     }
 
-    @PutMapping("/updateQuestionnaireByOwner")
-    ResponseEntity<?> updateQuestionnaireByOwner(@Param("name") String name, @Param("surname") String surname, @RequestBody QuestionnaireEntity questionnaireEntity) {
-        {
-            QuestionaireOwnerEntity questionaireOwnerEntity = new QuestionaireOwnerEntity(name, surname);
 
-            ResponseEntity responseEntityResult = questionnaireService.validateQuestionnaireQuery(questionnaireEntity);
-            questionnaireService.addOwnerToQuestionnaire(questionaireOwnerEntity,questionnaireEntity);
-
-            return responseEntityResult;
-        }
-    }
 
 }

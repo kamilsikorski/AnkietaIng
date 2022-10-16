@@ -27,11 +27,10 @@ public class AnswerOpenEntity {
     @NotBlank(message = "Answer must contain content")
     private String openAnswerContent;
 
-    @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "questionnaire_id")
-    private QuestionnaireEntity questionnaireEntity;
+    @JoinColumn(name = "question_id")
+    private QuestionEntity questionEntity;
 
 
 

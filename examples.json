@@ -2,16 +2,27 @@
   "title": "Ankieta test",
   "questions": [
     {
-      "questionContent": "Jak mas zna imie1",
+      "questionContent": "Jak mas zna imie?",
       "multiSelection": false,
       "openQuestion": false,
       "minAnswer": 1,
       "maxAnswer": 1,
       "closeAnswers": [
         {
-          "answerContent": "dupsko"
+          "answerContent": "Andrzej"
+        },
+        {
+          "answerContent": "Wacek"
+        },
+        {
+          "answerContent": "Kamil"
         }
       ]
+    },
+    {
+      "questionContent": "Czy Ci się podoba?",
+      "openQuestion": true
     }
   ]
 }
+
