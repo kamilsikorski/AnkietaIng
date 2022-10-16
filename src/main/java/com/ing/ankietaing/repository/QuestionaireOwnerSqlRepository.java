@@ -12,12 +12,9 @@ import java.util.List;
 @Repository
 public interface QuestionaireOwnerSqlRepository extends JpaRepository<QuestionaireOwnerEntity, Long> {
 
-
     @Query("select distinct questionnaire from QuestionaireOwnerEntity owner join owner.questionnaireEntities questionnaire where " +
             "owner.name =:name and owner.surename = :surename")
     QuestionnaireEntity findQuestionnaireForOwner(@Param("name") String name, @Param("surename") String surename);
-
-
 
 
 }

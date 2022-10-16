@@ -47,16 +47,25 @@ public class QuestionnaireService {
     }
 
 
+    public ResponseEntity<?> submitQuestionnaire(QuestionnaireEntity questionnaireEntity) {
+
+        ResponseEntity submitResult = validateAllQuestionsFromQuestionnaire(questionnaireEntity);
+        if (submitResult.getStatusCode().equals(HttpStatus.ACCEPTED)) {
+            QuestionnaireEntity persistedQuestionnaire = questionnaireRepository.findById(questionnaireEntity.getId()).get();
+            persistedQuestionnaire.setSubmitted(true);
+            questionnaireRepository.save(persistedQuestionnaire);
+        }
+
+        return submitResult;
+    }
+
+
     public void updateQuestionnaireByOwner(QuestionaireOwnerEntity questionaireOwnerEntity, QuestionnaireEntity questionnaireEntityUpdate) {
 
         QuestionnaireEntity questionnaireEntityFromDatabase = questionaireOwnerSqlRepository.findQuestionnaireForOwner(questionaireOwnerEntity.getName(),
                 questionaireOwnerEntity.getSurename());
 
-
-
         questionnaireRepository.save(questionnaireEntityFromDatabase);
-
-
     }
 
 
@@ -65,12 +74,12 @@ public class QuestionnaireService {
     }
 
 
-    public ResponseEntity validateAllQuestionsFromQuestionnaire(List<QuestionnaireEntity> questionnaireEntity) {
+    private ResponseEntity validateAllQuestionsFromQuestionnaire(QuestionnaireEntity questionnaireEntity) {
 
-        if (true) {
+        if (false) {
             return new ResponseEntity<>("jest zle", HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
 

@@ -6,14 +6,12 @@ import com.ing.ankietaing.model.QuestionnaireEntity;
 import com.ing.ankietaing.service.QuestionnaireService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.webmvc.support.RepositoryConstraintViolationExceptionMessage;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.stream.Stream;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class QuestionaireOwnerController {

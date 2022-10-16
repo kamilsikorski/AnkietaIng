@@ -10,10 +10,8 @@ import java.util.List;
 @Repository
 public interface QuestionnaireSqlRepository extends JpaRepository<QuestionnaireEntity,Long> {
 
-
     @Query("select distinct forms from QuestionnaireEntity forms join fetch forms.questions")
     List<QuestionnaireEntity> findAllNoLazy();
-
     @Override
     List<QuestionnaireEntity> findAll();
 

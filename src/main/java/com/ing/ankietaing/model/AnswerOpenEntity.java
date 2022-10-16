@@ -33,8 +33,4 @@ public class AnswerOpenEntity {
     private QuestionEntity questionEntity;
 
 
-
-
-
-
 }

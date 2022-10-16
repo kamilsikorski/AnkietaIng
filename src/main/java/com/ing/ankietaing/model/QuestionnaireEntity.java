@@ -33,6 +33,10 @@ public class QuestionnaireEntity {
 
     @Getter
     @Setter
+    private boolean submitted;
+
+    @Getter
+    @Setter
     @OneToMany(fetch = FetchType.LAZY)
     private List<QuestionEntity> questions;
 

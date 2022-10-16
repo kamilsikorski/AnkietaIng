@@ -35,8 +35,4 @@ public class AnswerCloseEntity {
     private QuestionEntity questionEntity;
 
 
-
-
-
-
 }

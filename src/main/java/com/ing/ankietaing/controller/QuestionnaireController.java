@@ -10,10 +10,7 @@ import com.ing.ankietaing.service.QuestionnaireService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class QuestionnaireController {
@@ -24,9 +21,12 @@ public class QuestionnaireController {
     private final QuestionnaireService questionnaireService;
 
     public QuestionnaireController(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository, QuestionnaireSqlRepository questionnaireSqlRepository, QuestionnaireService questionnaireService) {
-
-
         this.questionnaireService = questionnaireService;
+    }
+
+    @PatchMapping("/submitQuestionnaire")
+    ResponseEntity<?> submitQuestionnaire(@RequestBody QuestionnaireEntity questionnaireEntity) {
+        return questionnaireService.submitQuestionnaire(questionnaireEntity);
     }
 
     @PutMapping("/addquestionnaire")

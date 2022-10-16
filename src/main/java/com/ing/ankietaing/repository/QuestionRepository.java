@@ -16,7 +16,6 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends JpaRepository<QuestionEntity,Long> {
 
-
     @RestResource(path = "findCloseQuestions", rel="findCloseQuestions")
     List<QuestionEntity> findByMultiSelectionIsFalseAndOpenQuestionIsFalse();
 
