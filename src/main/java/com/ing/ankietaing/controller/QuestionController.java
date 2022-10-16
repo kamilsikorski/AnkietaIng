@@ -28,6 +28,8 @@ public class QuestionController {
         return ResponseEntity.ok(questionRepository.findAll());
     }
 
+
+
     @PutMapping("/question/{id}")
     ResponseEntity<?> updateQuestion(@PathVariable long id, @RequestBody QuestionEntity toUpdate) {
         if(!questionRepository.existsById(id)){

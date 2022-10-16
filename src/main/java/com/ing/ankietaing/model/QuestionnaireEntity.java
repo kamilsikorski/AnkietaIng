@@ -36,10 +36,10 @@ public class QuestionnaireEntity {
     @OneToMany(fetch = FetchType.LAZY)
     private List<QuestionEntity> questions;
 
-//    @Setter
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private UserEntity userEntity;
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private QuestionaireOwnerEntity questionaireOwnerEntity;
 
 
 }
