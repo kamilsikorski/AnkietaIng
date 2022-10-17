@@ -22,7 +22,9 @@ public class ReportService {
     }
 
 
-    public String createReportForQuestionnaire(String title) {
+    public List<String> createReportForQuestionnaire(String title) {
+
+        List<String> reportsRow = new ArrayList<>();
 
         Map<String, List<AnswerCloseEntity>> reportAnswerMap = new HashMap<>();
         List<QuestionEntity> allSubmittedQuestions = reportSqlRepository.listSelectedAnswersForQuestionnaire(title);
@@ -61,13 +63,13 @@ public class ReportService {
                         selectedValueCounter++;
                     }
                 }
-                System.out.println("Pytanie: " + set.getKey() + " Odpowiedz: " + answerName + " " + selectedValueCounter/selectedAnswersList.size());
+                reportsRow.add("Pytanie: " + set.getKey() + " Odpowiedz: " + answerName + " " + ((selectedValueCounter/selectedAnswersList.size())*100)+"%");
             }
 
         }
 
 
-        return "Koniec";
+        return reportsRow;
 
     }
 

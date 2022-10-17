@@ -26,4 +26,5 @@ public interface QuestionRepository extends JpaRepository<QuestionEntity,Long> {
     boolean existsByQuestionnaireEntityTitle(String title);
 
     boolean existsByQuestionnaireEntity_Id(Long id);
+
 }

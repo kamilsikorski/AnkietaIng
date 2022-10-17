@@ -1,0 +1,7 @@
+//patch
+//http://localhost:8080/submitQuestionnaire
+
+{
+  "id":12, //id ankiety (questionnairy)
+  "submitted":true
+}

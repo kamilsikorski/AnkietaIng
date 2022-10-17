@@ -1,7 +1,6 @@
 package com.ing.ankietaing.controller;
 
 
-import com.ing.ankietaing.model.QuestionEntity;
 import com.ing.ankietaing.model.QuestionnaireEntity;
 import com.ing.ankietaing.repository.QuestionRepository;
 import com.ing.ankietaing.repository.QuestionnaireRepository;

@@ -17,11 +17,15 @@ public class QuestionnaireValidator {
             int selectedAnswers = question.getCloseAnswers().stream()
                     .filter(answerClose -> answerClose.isSelected()).collect(Collectors.toList()).size();
 
-            if (selectedAnswers >= question.getMinAnswer() || selectedAnswers <= question.getMaxAnswer()) {
-                throw new ValidationException(question.getQuestionContent() + " wrong number of answers" );
+            if (selectedAnswers < question.getMinAnswer()) {
+                throw new ValidationException(question.getQuestionContent() + " to small number of answers" );
             }
 
-            if(question.isOpenQuestion() && question.getOpenAnswerContent().isEmpty()){
+            if (selectedAnswers > question.getMaxAnswer()) {
+                throw new ValidationException(question.getQuestionContent() + " to many answers" );
+            }
+
+            if(question.isOpenQuestion() && null == question.getOpenAnswerContent()){
                 throw new ValidationException(question.getQuestionContent() + " no response for open question");
             }
         }

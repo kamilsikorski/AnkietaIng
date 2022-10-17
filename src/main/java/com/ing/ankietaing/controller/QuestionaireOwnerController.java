@@ -25,21 +25,11 @@ public class QuestionaireOwnerController {
         this.questionnaireService = questionnaireService;
     }
 
-//    @GetMapping("/check")
-//    public ResponseEntity<?> check() {
-//        logger.warn("Exposing all questions");
-//        questionnaireService.check();
-//        return ResponseEntity.ok().build();
-//    }
 
-
-
-    //no validation first creation
     @PutMapping("/addQuestionnaireToOwner")
     ResponseEntity<?> addQuestionnaireToOwner(@Param("name") String name, @Param("surname") String surname, @RequestBody QuestionnaireEntity questionnaireEntity) {
         {
             QuestionaireOwnerEntity questionaireOwnerEntity = new QuestionaireOwnerEntity(name, surname);
-
             questionnaireService.addOwnerToQuestionnaire(questionaireOwnerEntity,questionnaireEntity);
 
             return ResponseEntity.noContent().build();

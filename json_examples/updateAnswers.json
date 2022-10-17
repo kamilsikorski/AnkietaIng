@@ -1,0 +1,10 @@
+//patch
+//http://localhost:8080/updateAnswerClose
+
+
+{
+  "id": 1, //id odpowiedzi
+  "selected": true
+}
+
+

@@ -14,11 +14,8 @@ import java.util.List;
 @Repository
 public interface ReportSqlRepository extends JpaRepository<QuestionnaireEntity,Long> {
 
-//    @Query("select distinct close from QuestionaireOwnerEntity owner join  owner.questionnaireEntities quesionnaire join  quesionnaire.questions questions join questions.closeAnswers close where owner.name='Kamil' " )
-//    List<AnswerCloseEntity> findMostPopularAnswer();
-
     @Query("select distinct questions from QuestionnaireEntity questionnare join questionnare.questions questions join questions.closeAnswers answer " +
-            "where questionnare.title = :title" )
+            "where questionnare.title = :title and questionnare.submitted=true" )
     List<QuestionEntity> listSelectedAnswersForQuestionnaire(@Param("title") String title);
 
 

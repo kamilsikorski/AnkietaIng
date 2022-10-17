@@ -18,7 +18,7 @@ public class ReportController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
-   private final ReportService reportService;
+    private final ReportService reportService;
 
     public ReportController(ReportService reportService) {
         this.reportService = reportService;
@@ -27,14 +27,8 @@ public class ReportController {
     @GetMapping("/reportAnswerForQuestionnaire")
     public ResponseEntity<?> reportAnswerForQuestionnaire(@Param("title") String title) {
 
+        List<String> reportsRow = reportService.createReportForQuestionnaire(title);
+        return new ResponseEntity<>(reportsRow,HttpStatus.OK);
 
-        reportService.createReportForQuestionnaire(title);
-
-
-
-
-
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

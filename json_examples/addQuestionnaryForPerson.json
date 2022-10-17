@@ -1,0 +1,56 @@
+
+//put ->  http://localhost:8080/addQuestionnaireToOwner?name=Kamil&surname=Sikorski
+
+
+{
+  "title": "Ankieta test",
+  "questions": [
+    {
+      "questionContent": "Jaka pogode lubisz?",
+      "multiSelection": false,
+      "openQuestion": false,
+      "minAnswer": 1,
+      "maxAnswer": 1,
+      "closeAnswers": [
+        {
+          "answerContent": "Sloneczna"
+        },
+        {
+          "answerContent": "Deszczowa"
+        },
+        {
+          "answerContent": "Mglista"
+        },
+        {
+          "answerContent": "Obojetne"
+        }
+      ]
+    },
+    {
+      "questionContent": "Co Ci sie w niej podoba najbardziej?",
+      "openQuestion": true
+    },
+    {
+      "questionContent": "Gdzie najbardziej lubisz wypoczywac?",
+      "multiSelection": true,
+      "openQuestion": false,
+      "minAnswer": 1,
+      "maxAnswer": 3,
+      "closeAnswers": [
+        {
+          "answerContent": "W domu"
+        },
+        {
+          "answerContent": "W parku"
+        },
+        {
+          "answerContent": "W górach"
+        },
+        {
+          "answerContent": "Nigdzie"
+        }
+      ]
+    }
+  ]
+}
+

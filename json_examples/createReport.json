@@ -1,0 +1,3 @@
+//GET
+//http://localhost:8080/reportAnswerForQuestionnaire?title=Ankieta test -- jako parametr nazwa ankiety generuje dla nie raport
+
