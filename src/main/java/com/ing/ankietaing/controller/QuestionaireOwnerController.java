@@ -25,12 +25,12 @@ public class QuestionaireOwnerController {
         this.questionnaireService = questionnaireService;
     }
 
-    @GetMapping("/check")
-    public ResponseEntity<?> check() {
-        logger.warn("Exposing all questions");
-        questionnaireService.check();
-        return ResponseEntity.ok().build();
-    }
+//    @GetMapping("/check")
+//    public ResponseEntity<?> check() {
+//        logger.warn("Exposing all questions");
+//        questionnaireService.check();
+//        return ResponseEntity.ok().build();
+//    }
 
 
 

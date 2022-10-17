@@ -1,6 +1,5 @@
 package com.ing.ankietaing.service;
 
-import com.ing.ankietaing.model.AnswerCloseEntity;
 import com.ing.ankietaing.model.QuestionEntity;
 import com.ing.ankietaing.model.QuestionaireOwnerEntity;
 import com.ing.ankietaing.model.QuestionnaireEntity;
@@ -8,9 +7,10 @@ import com.ing.ankietaing.repository.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class QuestionnaireService {
@@ -29,8 +29,9 @@ public class QuestionnaireService {
 
     private final QuestionaireOwnerSqlRepository questionaireOwnerSqlRepository;
 
+    private final QuestionnaireValidator questionnaireValidator;
 
-    public QuestionnaireService(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository, QuestionnaireSqlRepository questionnaireSqlRepository, AnswerCloseRepository answerCloseRepository, QuestionaireOwnerRepository questionaireOwnerRepository, ReportSqlRepository reportSqlRepository, QuestionaireOwnerSqlRepository questionaireOwnerSqlRepository) {
+    public QuestionnaireService(QuestionnaireRepository questionnaireRepository, QuestionRepository questionRepository, QuestionnaireSqlRepository questionnaireSqlRepository, AnswerCloseRepository answerCloseRepository, QuestionaireOwnerRepository questionaireOwnerRepository, ReportSqlRepository reportSqlRepository, QuestionaireOwnerSqlRepository questionaireOwnerSqlRepository, QuestionnaireValidator questionnaireValidator) {
         this.questionnaireRepository = questionnaireRepository;
         this.questionRepository = questionRepository;
         this.questionnaireSqlRepository = questionnaireSqlRepository;
@@ -38,6 +39,7 @@ public class QuestionnaireService {
         this.questionaireOwnerRepository = questionaireOwnerRepository;
         this.reportSqlRepository = reportSqlRepository;
         this.questionaireOwnerSqlRepository = questionaireOwnerSqlRepository;
+        this.questionnaireValidator = questionnaireValidator;
     }
 
     public void addOwnerToQuestionnaire(QuestionaireOwnerEntity questionaireOwnerEntity, QuestionnaireEntity questionnaireEntity) {
@@ -49,9 +51,9 @@ public class QuestionnaireService {
 
     public ResponseEntity<?> submitQuestionnaire(QuestionnaireEntity questionnaireEntity) {
 
-        ResponseEntity submitResult = validateAllQuestionsFromQuestionnaire(questionnaireEntity);
+        QuestionnaireEntity persistedQuestionnaire = questionnaireRepository.findById(questionnaireEntity.getId()).get();
+        ResponseEntity submitResult = validateAllQuestionsFromQuestionnaire(persistedQuestionnaire);
         if (submitResult.getStatusCode().equals(HttpStatus.ACCEPTED)) {
-            QuestionnaireEntity persistedQuestionnaire = questionnaireRepository.findById(questionnaireEntity.getId()).get();
             persistedQuestionnaire.setSubmitted(true);
             questionnaireRepository.save(persistedQuestionnaire);
         }
@@ -69,18 +71,19 @@ public class QuestionnaireService {
     }
 
 
-    public void check() {
-        reportSqlRepository.findMostPopularAnswer();
-    }
+//    public void check() {
+//        reportSqlRepository.findMostPopularAnswer();
+//    }
 
 
     private ResponseEntity validateAllQuestionsFromQuestionnaire(QuestionnaireEntity questionnaireEntity) {
 
-        if (false) {
-            return new ResponseEntity<>("jest zle", HttpStatus.BAD_REQUEST);
-        }
+        questionnaireValidator.allAnswersFilled(questionnaireEntity);
+
+
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
+
 
 
     public void addFullQuestionnaire(QuestionnaireEntity questionnaireEntity) {
