@@ -14,9 +14,14 @@ public class AnswerCloseService {
     }
 
     public void updateCloseAnswer(AnswerCloseEntity answerCloseEntity) {
-        AnswerCloseEntity answerClosePersistanceObject = answerCloseRepository.findById(answerCloseEntity.getId()).get();
-        answerClosePersistanceObject.setSelected(answerCloseEntity.isSelected());
-        answerCloseRepository.save(answerClosePersistanceObject);
+
+        answerCloseRepository.findById(answerCloseEntity.getId())
+                .ifPresent(acEntity -> {
+                    acEntity.setSelected(answerCloseEntity.isSelected());
+                    answerCloseRepository.save(acEntity);
+                });
+
+
     }
 
 }

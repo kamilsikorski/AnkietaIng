@@ -57,12 +57,7 @@ public class ReportService {
 
 
             for (String answerName : answersNameList) {
-                double selectedValueCounter = 0;
-                for (AnswerCloseEntity selectedAnswer : selectedAnswersList) {
-                    if (answerName.equals(selectedAnswer.getAnswerContent())) {
-                        selectedValueCounter++;
-                    }
-                }
+                double selectedValueCounter = selectedAnswersList.stream().filter(selectedAnswer -> answerName.equals(selectedAnswer.getAnswerContent())).count();
                 reportsRow.add("Pytanie: " + set.getKey() + " Odpowiedz: " + answerName + " " + ((selectedValueCounter/selectedAnswersList.size())*100)+"%");
             }
 

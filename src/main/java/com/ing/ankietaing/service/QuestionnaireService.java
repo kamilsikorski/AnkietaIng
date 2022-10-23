@@ -7,13 +7,17 @@ import com.ing.ankietaing.repository.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class QuestionnaireService {
+
+
 
     private final QuestionnaireRepository questionnaireRepository;
 
@@ -80,7 +84,6 @@ public class QuestionnaireService {
 
         questionnaireValidator.allAnswersFilled(questionnaireEntity);
 
-
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
@@ -88,17 +91,18 @@ public class QuestionnaireService {
 
     public void addFullQuestionnaire(QuestionnaireEntity questionnaireEntity) {
 
-        if (questionnaireEntity.getQuestions() != null) {
-
-            for (QuestionEntity questionEntity : questionnaireEntity.getQuestions()) {
-                if (questionEntity.getCloseAnswers() != null) {
-                    answerCloseRepository.saveAll(questionEntity.getCloseAnswers());
-                }
-            }
-
-            questionRepository.saveAll(questionnaireEntity.getQuestions());
+        if(CollectionUtils.isEmpty(questionnaireEntity.getQuestions())){
+            throw new IllegalStateException("Qustionnaire must contain questions");
         }
+
+        questionnaireEntity.getQuestions().stream().filter(questionEntity -> null != questionEntity.getCloseAnswers())
+                .forEach(questionEntity -> {
+                    answerCloseRepository.saveAll(questionEntity.getCloseAnswers());
+                });
+
+        questionRepository.saveAll(questionnaireEntity.getQuestions());
         questionnaireRepository.save(questionnaireEntity);
+
     }
 
     public List<QuestionnaireEntity> readAllQuestionnairesNoLazy() {

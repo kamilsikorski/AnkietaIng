@@ -1,7 +1,7 @@
 package com.ing.ankietaing.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
@@ -42,6 +42,7 @@ public class QuestionnaireEntity {
 
     @Setter
     @ManyToOne
+    @Getter
     @JoinColumn(name = "owner_id")
     private QuestionaireOwnerEntity questionaireOwnerEntity;
 

@@ -1,5 +1,7 @@
 package com.ing.ankietaing.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,10 +9,13 @@ import javax.persistence.*;
 
 @Entity
 @Table
+@Builder
+@AllArgsConstructor
 public class AnswerCloseEntity {
 
     public AnswerCloseEntity() {
     }
+
 
     @Embedded
     private Audit audit = new Audit();

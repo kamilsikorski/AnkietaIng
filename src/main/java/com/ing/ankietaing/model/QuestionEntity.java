@@ -1,5 +1,7 @@
 package com.ing.ankietaing.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +10,11 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name="question")
 public class QuestionEntity {
 
-    public QuestionEntity() {
-    }
 
     @Embedded
     private Audit audit = new Audit();
@@ -60,5 +62,7 @@ public class QuestionEntity {
     private List<AnswerCloseEntity> closeAnswers;
 
 
+    public QuestionEntity() {
 
+    }
 }

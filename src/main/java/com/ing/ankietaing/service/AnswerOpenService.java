@@ -15,9 +15,13 @@ public class AnswerOpenService {
     }
 
     public void fillOpenQuestion(QuestionEntity questionEntity) {
-        QuestionEntity questionPersisted = questionRepository.findById(questionEntity.getId()).get();
-        questionPersisted.setOpenAnswerContent(questionEntity.getOpenAnswerContent());
-        questionRepository.save(questionPersisted);
+
+        questionRepository.findById(questionEntity.getId())
+                .ifPresent(question -> {
+                    question.setOpenAnswerContent(questionEntity.getOpenAnswerContent());
+                    questionRepository.save(question);
+                });
+        
     }
 
 }
